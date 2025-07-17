@@ -8,7 +8,7 @@ const schema = new mongoose.Schema(
     },
   },
   {
-    timesstamps: true,
+    timestamps: true,
   }
 );
 
