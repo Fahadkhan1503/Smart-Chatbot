@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { UserData } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../components/Loading";
 
 const Verify = () => {
   const [otp, setOtp] = useState("");
@@ -48,7 +49,7 @@ const Verify = () => {
           type="submit"
           className="w-full py-3 font-bold text-white bg-gradient-to-r from-green-500 via-teal-500 to-blue-500 rounded-xl hover:opacity-90 shadow-lg transition-all duration-300"
         >
-          {btnLoading ? "Please Wait ...":"Verify"}
+          {btnLoading ? <LoadingSpinner />:"Verify"}
         </button>
       </form>
     </div>

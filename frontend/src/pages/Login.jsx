@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { UserData } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
+import { LoadingSpinner } from "../components/Loading";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,7 +43,7 @@ const Login = () => {
           className="w-full py-3 font-bold text-white bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-xl hover:opacity-90 shadow-lg transition-all duration-300"
           disabled={btnLoading}
         >
-           {btnLoading ? "Please Wait ...":"Login"}
+           {btnLoading ? <LoadingSpinner />:"Login"}
         </button>
       </form>
     </div>
