@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { UserData } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
+  
+  const {loginUser, btnLoading} = UserData()
+  const navigate = useNavigate()
+
   const submitHandler=(e) =>{
     e.preventDefault();
-    console.log(email);
+    loginUser(email,navigate);
   }
 
   return (
@@ -34,8 +40,9 @@ const Login = () => {
         <button
           type="submit"
           className="w-full py-3 font-bold text-white bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-xl hover:opacity-90 shadow-lg transition-all duration-300"
+          disabled={btnLoading}
         >
-           Login
+           {btnLoading ? "Please Wait ...":"Login"}
         </button>
       </form>
     </div>
@@ -63,8 +70,8 @@ const Login = () => {
   //         required
   //       />
   //     </div>
-  //     <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
-  //       Submit
+  //     <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" disabled={btnLoading}>
+  //       {btnLoading ? "please Wait ...":"Submit"}
   //     </button>
   //     </form>
   //   </div>
