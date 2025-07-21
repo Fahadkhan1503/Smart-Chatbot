@@ -32,49 +32,117 @@ const Home = () => {
   }, [messages]);
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex h-screen bg-gradient-to-br from-blue-200 via-cyan-50 to-white text-gray-800">
+  
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
-      <div className="flex flex-1 flex-col ">
+  
+      <div className="flex flex-1 flex-col">
+  
         <button
           onClick={toggleSidebar}
-          className=" md:hidden p-4 bg-gray-800 text-2xl"
+          className="md:hidden p-4 bg-white border-b border-cyan-200 text-cyan-700 text-2xl"
         >
           <GiHamburgerMenu />
         </button>
-        <div className="flex-1  p-6 mb:20 md:mb-0">
-          <Header/>
+  
+        <div className="flex-1 p-6 mb-20 md:mb-0">
+          <Header />
+          
           <div className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar" ref={messagecontainerRef}>
-            {
-              messages && messages.length>0 ? messages.map((e, i) => (
-                <div key={i}>
-                  <div className="mb-4 p-4 rounded bg-blue-700 text-white flex gap-1">
-                    <div className="bg-white p-2 rounded-full text-black text-2xl h-10">
-                      <CgProfile />
-                    </div>
-                    {e.question}
+            {messages && messages.length > 0 ? messages.map((e, i) => (
+              <div key={i}>
+                {/* User Message */}
+                <div className="mb-4 p-4 rounded-xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white flex gap-3 shadow-lg">
+                  <div className="bg-white p-3 rounded-full text-blue-700 text-2xl h-12 flex items-center justify-center shadow-md">
+                    <CgProfile />
                   </div>
-                  <div className="mb-4 p-4 rounded bg-gray-700 text-white flex gap-1">
-                    <div className="bg-white p-2 rounded-full text-black text-2xl h-10">
-                      <FaRobot />
-                    </div>
-                    <p dangerouslySetInnerHTML={{ __html: e.answer }}></p>
-                  </div>
+                  {e.question}
                 </div>
-              )) : ( <p>No Chat yet</p>
+  
+                {/* Bot Message */}
+                <div className="mb-4 p-4 rounded-xl bg-white border border-cyan-200 text-gray-800 flex gap-3 shadow">
+                  <div className="bg-cyan-500 p-3 rounded-full text-white text-2xl h-12 flex items-center justify-center shadow-md">
+                    <FaRobot />
+                  </div>
+                  <p dangerouslySetInnerHTML={{ __html: e.answer }}></p>
+                </div>
+              </div>
+            )) : (
+              <p className="text-center text-gray-500">No Chat yet</p>
             )}
             {newRequestLoading && <LoadingSmall />}
           </div>
+  
         </div>
       </div>
-      <div className="fixed bottom-0 right-0 left-auto p-4 bg-gray-900 w-full md:w-[75%]">
-        <form onSubmit={submitHandler} className="flex justify-center items-center">
-          <input className="flex-grow p-4 bg-gray-700 rounded-l text-white outline-none"
-          type="text" placeholder="Enter a prompt here!!" value={prompt} onChange={e=> setPrompt(e.target.value)} required />
-          <button className="p-4 bg-gray-700 rounded-r text-2xl text-white"> <IoMdSend /> </button>
+  
+      <div className="fixed bottom-0 right-0 left-auto p-4 bg-white border-t border-cyan-100 w-full md:w-[75%] shadow-md">
+        <form onSubmit={submitHandler} className="flex justify-center items-center gap-2">
+          <input
+            className="flex-grow p-4 bg-cyan-100 rounded-xl outline-none focus:ring-2 focus:ring-cyan-300 text-gray-800 placeholder-gray-500"
+            type="text"
+            placeholder="Enter a prompt here!!"
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            required
+          />
+          <button
+            className="p-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-xl text-white text-2xl hover:opacity-90 transition"
+          >
+            <IoMdSend />
+          </button>
         </form>
       </div>
+  
     </div>
   );
+  
+
+  // original
+  // return (
+  //   <div className="flex h-screen bg-gray-900 text-white">
+  //     <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
+  //     <div className="flex flex-1 flex-col ">
+  //       <button
+  //         onClick={toggleSidebar}
+  //         className=" md:hidden p-4 bg-gray-800 text-2xl"
+  //       >
+  //         <GiHamburgerMenu />
+  //       </button>
+  //       <div className="flex-1  p-6 mb:20 md:mb-0">
+  //         <Header/>
+  //         <div className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar" ref={messagecontainerRef}>
+  //           {
+  //             messages && messages.length>0 ? messages.map((e, i) => (
+  //               <div key={i}>
+  //                 <div className="mb-4 p-4 rounded bg-blue-700 text-white flex gap-1">
+  //                   <div className="bg-white p-2 rounded-full text-black text-2xl h-10">
+  //                     <CgProfile />
+  //                   </div>
+  //                   {e.question}
+  //                 </div>
+  //                 <div className="mb-4 p-4 rounded bg-gray-700 text-white flex gap-1">
+  //                   <div className="bg-white p-2 rounded-full text-black text-2xl h-10">
+  //                     <FaRobot />
+  //                   </div>
+  //                   <p dangerouslySetInnerHTML={{ __html: e.answer }}></p>
+  //                 </div>
+  //               </div>
+  //             )) : ( <p>No Chat yet</p>
+  //           )}
+  //           {newRequestLoading && <LoadingSmall />}
+  //         </div>
+  //       </div>
+  //     </div>
+  //     <div className="fixed bottom-0 right-0 left-auto p-4 bg-gray-900 w-full md:w-[75%]">
+  //       <form onSubmit={submitHandler} className="flex justify-center items-center">
+  //         <input className="flex-grow p-4 bg-gray-700 rounded-l text-white outline-none"
+  //         type="text" placeholder="Enter a prompt here!!" value={prompt} onChange={e=> setPrompt(e.target.value)} required />
+  //         <button className="p-4 bg-gray-700 rounded-r text-2xl text-white"> <IoMdSend /> </button>
+  //       </form>
+  //     </div>
+  //   </div>
+  // );
 };
 
 export default Home;
