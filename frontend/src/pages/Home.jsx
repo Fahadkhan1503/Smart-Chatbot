@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import { ChatData } from "../context/ChatContext";
 import { CgProfile } from "react-icons/cg";
 import { FaRobot } from "react-icons/fa";
-import { LoadingSmall } from "../components/Loading";
+import { LoadingBig, LoadingSmall } from "../components/Loading";
 import { IoMdSend } from "react-icons/io";
 
 const Home = () => {
@@ -14,7 +14,7 @@ const Home = () => {
     console.log("Toggle clicked");
     setIsOpen(!isOpen);
   };
-  const { fetchResponse, messages, prompt, setPrompt, newRequestLoading } = ChatData();
+  const { fetchResponse, messages, prompt, setPrompt, newRequestLoading, loading, chats } = ChatData();
   const submitHandler = (e) => {
     e.preventDefault();
     fetchResponse()
@@ -48,7 +48,8 @@ const Home = () => {
         <div className="flex-1 p-6 mb-20 md:mb-0">
           <Header />
           
-          <div className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar" ref={messagecontainerRef}>
+          {
+            loading ? <LoadingBig /> : <div className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar" ref={messagecontainerRef}>
             {messages && messages.length > 0 ? messages.map((e, i) => (
               <div key={i}>
                 {/* User Message */}
@@ -72,11 +73,13 @@ const Home = () => {
             )}
             {newRequestLoading && <LoadingSmall />}
           </div>
+          }
   
         </div>
       </div>
   
-      <div className="fixed bottom-0 right-0 left-auto p-4 bg-white border-t border-cyan-100 w-full md:w-[75%] shadow-md">
+      {
+        chats && chats.length === 0 ? "" : <div className="fixed bottom-0 right-0 left-auto p-4 bg-white border-t border-cyan-100 w-full md:w-[75%] shadow-md">
         <form onSubmit={submitHandler} className="flex justify-center items-center gap-2">
           <input
             className="flex-grow p-4 bg-cyan-100 rounded-xl outline-none focus:ring-2 focus:ring-cyan-300 text-gray-800 placeholder-gray-500"
@@ -93,6 +96,7 @@ const Home = () => {
           </button>
         </form>
       </div>
+      }
   
     </div>
   );

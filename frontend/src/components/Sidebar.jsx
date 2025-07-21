@@ -3,10 +3,22 @@ import { IoIosCloseCircle } from "react-icons/io";
 import { ChatData } from "../context/ChatContext";
 import { MdDelete } from "react-icons/md";
 import { LoadingSpinner } from "./Loading";
+import { UserData } from "../context/UserContext";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
-  const { chats, createChat, createLod, setSelected } = ChatData();
+  const { chats, createChat, createLod, setSelected, deleteChat } = ChatData();
+  const {logoutHandler} = UserData();
 
+  const deleteChatHandler = (id) => {
+    if(confirm("Are you sure you want to delete this chat??")) {
+      deleteChat(id);
+    }
+  }
+
+  const clickEvent = (id) => {
+    setSelected(id);
+    toggleSidebar();
+  }
 
   return (
     <div
@@ -42,11 +54,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             chats.map((e) => (
               <button
                 key={e._id}
-                onClick={() => setSelected(e._id)}
+                onClick={() => clickEvent(e._id)}
                 className="w-full flex justify-between items-center px-4 py-3 bg-white rounded-xl border border-cyan-200 hover:bg-cyan-100 transition-all shadow-sm"
               >
                 <span className="text-gray-700 truncate max-w-[70%]">{e.latestMessage.slice(0, 38)}...</span>
-                <button className="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition text-lg">
+                <button onClick={()=> deleteChatHandler(e._id)} className="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-600 transition text-lg">
                   <MdDelete />
                 </button>
               </button>
@@ -58,7 +70,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       </div>
   
       <div className="absolute bottom-0 left-0 right-0 mb-6 px-6">
-        <button className="w-full py-3 font-bold bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-xl shadow-lg hover:opacity-90 transition">
+        <button onClick={logoutHandler} className="w-full py-3 font-bold bg-gradient-to-r from-red-400 to-pink-500 text-white rounded-xl shadow-lg hover:opacity-90 transition">
            Logout
         </button>
       </div>

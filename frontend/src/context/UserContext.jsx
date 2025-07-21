@@ -3,8 +3,6 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { server } from "../main";
 
-
-
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
@@ -27,7 +25,7 @@ export const UserProvider = ({ children }) => {
 
   const [user, setUser] = useState([])
   const [isAuth, setIsAuth] = useState(false)
-  async function verifyUser(otp, navigate) {
+  async function verifyUser(otp, navigate, fetchChats) {
     const verifyToken = localStorage.getItem("verifyToken");
     setBtnloading(true)
 
@@ -41,6 +39,7 @@ export const UserProvider = ({ children }) => {
       setBtnloading(false)
       setIsAuth(true);
       setUser(data.user);
+      fetchChats();
     } catch (error) {
       toast.error(error.response.data.message);
       setBtnloading(false)
@@ -67,6 +66,14 @@ export const UserProvider = ({ children }) => {
     
   }
 
+  const logoutHandler = (navigate) => {
+    localStorage.clear();
+    toast.success("Logged Out Successfully!!!");
+    setIsAuth(false);
+    setUser([]);
+    navigate("/login");
+  }
+
   useEffect(() => {
       fetchUser();
     }, []);
@@ -77,7 +84,7 @@ export const UserProvider = ({ children }) => {
         loginUser, btnLoading,
         isAuth, setIsAuth,
         user, verifyUser,
-        loading,
+        loading, logoutHandler,
      }}>
       {children}
       <Toaster />

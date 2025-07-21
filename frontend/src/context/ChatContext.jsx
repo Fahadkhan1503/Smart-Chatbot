@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { server } from "../main";
@@ -28,6 +29,16 @@ export const ChatProvider = ({ children }) => {
       };
       setMessages((prev) => [...prev, message]);
       setNewRequestLoading(false);
+
+      const { data } = await axios.post(`${server}/api/chat/${selected}`, {
+        question: prompt,
+        answer: response["data"]["candidates"][0]["content"]["parts"][0]["text"],
+      }, {
+        headers: {
+            token: localStorage.getItem("token"),
+        }
+      })
+
     } catch (error) {
       alert("something went wrong");
       console.log(error);
@@ -46,10 +57,10 @@ export const ChatProvider = ({ children }) => {
       });
 
       setChats(data);
-      setSelected(data[0]._id);
+      setSelected(data[0]._id)
     } catch (error) {
       console.log(error);
-      alert("Something went wrong while fetching chats");
+    //   alert("Something went wrong while fetching chats");
     }
   }
   const [createLod, setCreateLod] = useState(false);
@@ -87,6 +98,22 @@ export const ChatProvider = ({ children }) => {
     }
   }
 
+  async function deleteChat(id) {
+    try {
+        const {data} = await axios.delete(`${server}/api/chat/${id}`, {
+            headers: {
+                token: localStorage.getItem("token"),
+            },
+        });
+        toast.success(data.message);
+        fetchChats();
+        window.location.reload();
+    } catch (error) {
+        console.log(error);
+        alert("Something went wrong!!!");
+    }
+  }
+
 
   useEffect(() => {
     fetchChats();
@@ -94,6 +121,7 @@ export const ChatProvider = ({ children }) => {
 
   useEffect(()=>{
     fetchMessages()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
   return (
     <ChatContext.Provider
@@ -110,6 +138,8 @@ export const ChatProvider = ({ children }) => {
         setSelected,
         loading,
         setLoading,
+        deleteChat,
+        fetchChats,
       }}
     >
       {children}
