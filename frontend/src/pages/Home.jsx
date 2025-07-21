@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useRef,useState } from "react";
 import Sidebar from "../components/Sidebar";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Header from "../components/Header";
@@ -19,6 +19,18 @@ const Home = () => {
     e.preventDefault();
     fetchResponse()
   }
+
+  const messagecontainerRef = useRef();
+
+  useEffect(() => {
+    if (messagecontainerRef.current) {
+      messagecontainerRef.current.scrollTo({
+        top: messagecontainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [messages]);
+
   return (
     <div className="flex h-screen bg-gray-900 text-white">
       <Sidebar isOpen={isOpen} toggleSidebar={toggleSidebar} />
@@ -31,7 +43,7 @@ const Home = () => {
         </button>
         <div className="flex-1  p-6 mb:20 md:mb-0">
           <Header/>
-          <div className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar">
+          <div className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar" ref={messagecontainerRef}>
             {
               messages && messages.length>0 ? messages.map((e, i) => (
                 <div key={i}>
@@ -56,7 +68,7 @@ const Home = () => {
       </div>
       <div className="fixed bottom-0 right-0 left-auto p-4 bg-gray-900 w-full md:w-[75%]">
         <form onSubmit={submitHandler} className="flex justify-center items-center">
-          <input className="flex-grow-0 p-4 bg-gray-700 rounded-l text-white outline-none"
+          <input className="flex-grow p-4 bg-gray-700 rounded-l text-white outline-none"
           type="text" placeholder="Enter a prompt here!!" value={prompt} onChange={e=> setPrompt(e.target.value)} required />
           <button className="p-4 bg-gray-700 rounded-r text-2xl text-white"> <IoMdSend /> </button>
         </form>
