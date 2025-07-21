@@ -12,7 +12,7 @@ export const ChatProvider = ({children}) => {
         setNewRequestLoading(true);
         setPrompt("");
         try {
-            const response = await axios.post({
+            const response = await axios({
                 url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAAjC1dJpXdjYdnESNWPb64iVEeopMkOZ0",
                 method: "post",
                 data: {
@@ -21,7 +21,7 @@ export const ChatProvider = ({children}) => {
             });
             const message = {
                 question: prompt,
-                answer: response["data"]["candidates"][0]["content"]["parts"]["text"],
+                answer: response["data"]["candidates"][0]["content"]["parts"][0]["text"],
             };
             setMessages((prev) => [...prev, message]);
             setNewRequestLoading(false);

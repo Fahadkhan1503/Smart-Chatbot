@@ -9,9 +9,9 @@ export const server = "http://localhost:5000"
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
       <UserProvider>
-        {/* <ChatProvider> */}
+        <ChatProvider>
           <App />
-        {/* </ChatProvider> */}
+        </ChatProvider>
       </UserProvider>
   </React.StrictMode>
 );
