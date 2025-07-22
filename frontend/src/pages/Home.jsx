@@ -7,6 +7,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaRobot } from "react-icons/fa";
 import { LoadingBig, LoadingSmall } from "../components/Loading";
 import { IoMdSend } from "react-icons/io";
+import ReactMarkdown from 'react-markdown';
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -53,23 +54,23 @@ const Home = () => {
             {messages && messages.length > 0 ? messages.map((e, i) => (
               <div key={i}>
                 {/* User Message */}
-                <div className="mb-4 p-4 rounded-xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white flex gap-3 shadow-lg">
-                  <div className="bg-white p-3 rounded-full text-blue-700 text-2xl h-12 flex items-center justify-center shadow-md">
+                <div className="mb-4 p-4 rounded-xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white flex gap-3 shadow-lg flex-col md:flex-row">
+                  <div className="bg-white p-3 rounded-full text-blue-700 text-2xl h-12 w-12 flex items-center justify-center shadow-md m-auto md:m-0">
                     <CgProfile />
                   </div>
-                  {e.question}
+                  <div className="flex items-center">{e.question}</div>
                 </div>
   
                 {/* Bot Message */}
-                <div className="mb-4 p-4 rounded-xl bg-white border border-cyan-200 text-gray-800 flex gap-3 shadow">
-                  <div className="bg-cyan-500 p-3 rounded-full text-white text-2xl h-12 flex items-center justify-center shadow-md">
+                <div className="mb-4 p-4 rounded-xl bg-white border border-cyan-200 text-gray-800 flex gap-3 shadow flex-col md:flex-row">
+                  <div className="bg-cyan-500 p-3 rounded-full text-white text-2xl h-12 flex items-center justify-center shadow-md m-auto md:m-0">
                     <FaRobot />
                   </div>
-                  <p dangerouslySetInnerHTML={{ __html: e.answer }}></p>
+                  <div className="flex items-center"><p dangerouslySetInnerHTML={{ __html: e.answer }}></p></div>
                 </div>
               </div>
             )) : (
-              <p className="text-center text-gray-500">No Chat yet</p>
+              <p className="flex justify-center items-center text-center h-[400px] text-gray-500 text-xl ">No Chat yet</p>
             )}
             {newRequestLoading && <LoadingSmall />}
           </div>

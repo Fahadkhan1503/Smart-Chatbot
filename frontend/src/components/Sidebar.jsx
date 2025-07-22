@@ -43,7 +43,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           onClick={createChat}
           className="w-full py-3 bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-semibold rounded-xl shadow-lg hover:opacity-90 transition"
         >
-          {createLod ? <LoadingSpinner /> : " New Chat"}
+          {createLod ? <LoadingSpinner /> : " New Chat +"}
         </button>
       </div>
   
