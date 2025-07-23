@@ -80,9 +80,13 @@ const Home = () => {
       </div>
   
       {
-        chats && chats.length === 0 ? "" : <div className="fixed bottom-0 right-0 left-auto p-4 bg-white border-t border-cyan-100 w-full md:w-[75%] shadow-md">
+        chats && chats.length === 0 ? "" : 
+        <div className={`fixed bottom-0 right-0 left-auto p-4 bg-white border-t border-cyan-100 w-full md:w-[75%] shadow-md transition-all duration-300 ${
+            isOpen ? "hidden md:block" : ""
+          }`}>
+        {/* // <div className="fixed bottom-0 right-0 left-auto p-4 bg-white border-t border-cyan-100 w-full md:w-[75%] shadow-md"> */}
         <form onSubmit={submitHandler} className="flex justify-center items-center gap-2">
-          <input
+          <input 
             className="flex-grow p-4 bg-cyan-100 rounded-xl outline-none focus:ring-2 focus:ring-cyan-300 text-gray-800 placeholder-gray-500"
             type="text"
             placeholder="Enter a prompt here!!"

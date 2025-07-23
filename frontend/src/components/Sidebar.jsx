@@ -49,7 +49,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   
       <div>
         <p className="text-sm text-gray-500 mb-3 uppercase tracking-wider font-medium">Recent</p>
-        <div className="max-h-[500px] overflow-y-auto mb-24 md:mb-0 thin-scrollbar space-y-3">
+        <div className="max-h-[350px] overflow-y-auto mb-24 md:mb-0 thin-scrollbar space-y-3">
           {chats && chats.length > 0 ? (
             chats.map((e) => (
               <button
