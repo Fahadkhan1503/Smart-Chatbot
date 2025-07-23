@@ -50,7 +50,7 @@ const Home = () => {
           <Header />
           
           {
-            loading ? <LoadingBig /> : <div className="flex-1 p-6 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar" ref={messagecontainerRef}>
+            loading ? <LoadingBig /> : <div className="flex-1 p-6 max-h-[500px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar" ref={messagecontainerRef}>
             {messages && messages.length > 0 ? messages.map((e, i) => (
               <div key={i}>
                 {/* User Message */}
