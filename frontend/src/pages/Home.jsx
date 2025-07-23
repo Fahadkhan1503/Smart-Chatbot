@@ -7,7 +7,7 @@ import { CgProfile } from "react-icons/cg";
 import { FaRobot } from "react-icons/fa";
 import { LoadingBig, LoadingSmall } from "../components/Loading";
 import { IoMdSend } from "react-icons/io";
-import ReactMarkdown from "react-markdown";
+import { marked } from "marked";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -51,7 +51,7 @@ const Home = () => {
         >
           <GiHamburgerMenu />
         </button>
-        
+
         <div className="flex-1 p-3 mb-20 md:mb-0">
           <Header />
 
@@ -59,7 +59,7 @@ const Home = () => {
             <LoadingBig />
           ) : (
             <div
-              className="flex-1 p-3 max-h-[500px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar"
+              className="flex-1 p-3 max-h-[600px] overflow-y-auto mb-20 md:mb-0 thin-scrollbar"
               ref={messagecontainerRef}
             >
               {messages && messages.length > 0 ? (
@@ -84,7 +84,13 @@ const Home = () => {
                           <FaRobot />
                         </div>
                         <div className="p-4 rounded-xl bg-white border border-cyan-200 text-gray-800 shadow text-left">
-                          <p dangerouslySetInnerHTML={{ __html: e.answer }}></p>
+                          <p
+                            className="prose max-w-full"
+                            dangerouslySetInnerHTML={{
+                              __html: marked.parse(e.answer || ""),
+                            }}
+                          ></p>
+                          {/* <p dangerouslySetInnerHTML={{ __html: e.answer }}></p> */}
                         </div>
                       </div>
                     </div>
