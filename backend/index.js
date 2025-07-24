@@ -7,6 +7,10 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Book Store API");
+});
+
 // using middlewares
 app.use(express.json());
 app.use(cors());
