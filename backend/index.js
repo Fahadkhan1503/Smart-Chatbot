@@ -7,8 +7,8 @@ import cors from "cors";
 dotenv.config();
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the Book Store API");
+app.get("/1000", (req, res) => {
+  res.send("Welcome to the smart chatbot  API");
 });
 
 // using middlewares

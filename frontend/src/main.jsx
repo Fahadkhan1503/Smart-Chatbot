@@ -5,7 +5,7 @@ import App from "./App.jsx";
 import { UserProvider } from "./context/UserContext.jsx";
 import { ChatProvider } from "./context/ChatContext.jsx";
 
-export const server = "http://localhost:5000"
+export const server = "https://smart-chatbot-ashen.vercel.app"
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
       <UserProvider>
